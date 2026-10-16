@@ -816,6 +816,211 @@ Every turn when Fragmento4-obtenido is true and Acto-2-completo is false:
 	say "[line break]----------------------------------------------------------[paragraph break]Cuatro fragmentos. Dos del mensaje de Carlos, uno del dead drop que dejó esperándote en Embajadores tres años, uno que Torquemada guardó desde aquella llamada del 21 de octubre del 91.[paragraph break]Quedan dos fragmentos sin localizar. Y en algún sitio, a medianoche del 23 de octubre de 1994, alguien sabe que has movido los hilos.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FIN DEL ACTO II — LA RED[roman type][paragraph break][bold type]===================================================[roman type][paragraph break][italic type]Acto III: El Archivo. Tres BBS. Tres ciudades. La clave ya tiene cuatro fragmentos. Lo que cifra sigue esperando.[roman type]".
 
 [================================================================
+  ACTO III — EL ARCHIVO
+================================================================]
+
+[--- Variables de estado ---]
+Velvet-conectado is a truth state that varies. Velvet-conectado is false.
+Velvet-visitado is a truth state that varies. Velvet-visitado is false.
+Silencia-fase is a number that varies. Silencia-fase is 0.
+Fragmento5-obtenido is a truth state that varies. Fragmento5-obtenido is false.
+Nocturno-conectado is a truth state that varies. Nocturno-conectado is false.
+Hexer-hablado is a truth state that varies. Hexer-hablado is false.
+Atocha-visitado is a truth state that varies. Atocha-visitado is false.
+Consigna-abierta is a truth state that varies. Consigna-abierta is false.
+Disco-leido is a truth state that varies. Disco-leido is false.
+Fragmento6-obtenido is a truth state that varies. Fragmento6-obtenido is false.
+Acto-3-completo is a truth state that varies. Acto-3-completo is false.
+
+[--- Nuevas acciones ---]
+Dialing-velvet is an action applying to nothing.
+Understand "conectar velvetbbs" and "llamar velvetbbs" and "conectar velvet" and "llamar velvet" and "marcar 88" as dialing-velvet.
+
+Dialing-nocturno is an action applying to nothing.
+Understand "conectar nocturno" and "llamar nocturno" and "conectar nocturno bbs" and "marcar 134" as dialing-nocturno.
+
+Opening-locker is an action applying to nothing.
+Understand "abrir consigna" and "abrir casillero" and "abrir k-37" and "abrir locker" and "abrir k37" and "teclear codigo" and "teclear clave" as opening-locker.
+
+[--- Salas digitales: VelvetBBS ---]
+Velvet-bienvenida is a room in el mundo digital.
+The printed name of Velvet-bienvenida is "VelvetBBS — Bilbao".
+The description of Velvet-bienvenida is "La pantalla muestra el logo de VelvetBBS: olas de puntos ASCII envuelven el nombre. Nodo 2:341/88. Bilbao.[paragraph break][fixed letter spacing]Usuarios en línea: 1  (SILENCIA)[variable letter spacing][paragraph break]HABLAR CON SILENCIA · ESTE para el correo · DESCONECTAR para salir.".
+East of Velvet-bienvenida is Velvet-correo.
+
+Velvet-correo is a room in el mundo digital.
+The printed name of Velvet-correo is "VelvetBBS — Correo".
+The description of Velvet-correo is "Bandeja de correo de VelvetBBS.[paragraph break][fixed letter spacing]Mensajes:[line break][if Silencia-fase >= 1 and Fragmento5-obtenido is false]  [bold type]1[roman type]  DE: Silencia@2:341/88  ASUNTO: Lo que pediste  [bold type]*NUEVO[roman type][else if Fragmento5-obtenido is true]  1  DE: Silencia@2:341/88  ASUNTO: Lo que pediste[else]  (vacío)[end if][variable letter spacing][paragraph break]LEER MENSAJE para abrir. OESTE para volver.".
+West of Velvet-correo is Velvet-bienvenida.
+
+Silencia is a person in Velvet-bienvenida.
+The description of Silencia is "[fixed letter spacing]SILENCIA @VelvetBBS · Bilbao · 2:341/88[variable letter spacing][paragraph break]No habla mucho. Los que conocen el nodo saben que eso no es frialdad sino cuidado.".
+Understand "silencia" and "sysop velvet" as Silencia.
+
+silencia-netmail is a fixed in place thing in Velvet-correo.
+The printed name of silencia-netmail is "mensaje de Silencia".
+The description of silencia-netmail is "[if Silencia-fase >= 1 and Fragmento5-obtenido is false]Un mensaje nuevo de Silencia. LEER MENSAJE para abrirlo.[else if Fragmento5-obtenido is true]El netmail de Silencia. Fragmento 5 ya recuperado.[else]La bandeja está vacía.[end if]".
+Understand "mensaje silencia" and "mensaje 1" and "mensaje" and "correo velvet" as silencia-netmail.
+
+[--- Sala digital: NOCTURNO BBS ---]
+Nocturno-bienvenida is a room in el mundo digital.
+The printed name of Nocturno-bienvenida is "NOCTURNO BBS — Sevilla".
+The description of Nocturno-bienvenida is "NOCTURNO BBS. Sevilla. Nodo 2:341/134.[paragraph break][fixed letter spacing]El sistema operativo en los menús no es PC-DOS sino algo casero que Hexer escribió él mismo. Aviso en la pantalla de bienvenida:[line break] [line break]  AVISO: ESTA BBS MONITOREA TODAS LAS SESIONES[variable letter spacing][paragraph break]HABLAR CON HEXER · DESCONECTAR para salir.".
+
+Hexer is a person in Nocturno-bienvenida.
+The description of Hexer is "[fixed letter spacing]HEXER @NOCTURNO · Sevilla · 2:341/134[variable letter spacing][paragraph break]Seco. Directo. No pierde el tiempo.".
+Understand "hexer" and "sysop nocturno" as Hexer.
+
+[--- Sala física: Estación Atocha ---]
+Estacion Atocha is a room in el mundo fisico.
+The printed name of Estacion Atocha is "Estación de Atocha — Consignas".
+The description of Estacion Atocha is "Son las dos de la madrugada. La estación huele a diésel y a café de máquina. Casi no hay nadie. Al fondo del vestíbulo sur, la fila de consignas automáticas llega hasta la pared. Cien casilleros metálicos numerados con letras y cifras. La K está en la tercera fila desde arriba, a la izquierda.[if Consigna-abierta is false][paragraph break]ABRIR CONSIGNA para usar la K-37.[else][paragraph break]La consigna K-37 está abierta.[end if][paragraph break]Al norte, de vuelta a la calle.".
+North of Estacion Atocha is Calle Embajadores.
+South of Calle Embajadores is Estacion Atocha.
+
+Instead of going south from Calle Embajadores when Hexer-hablado is false:
+	say "Son las dos de la madrugada. No tienes motivo para ir a Atocha todavía. Primero sigue con los sysops que quedan.".
+
+After going to Estacion Atocha when Atocha-visitado is false:
+	now Atocha-visitado is true;
+	increase the score by 20;
+	say "[bracket]+ 20 puntos: Estación de Atocha, consignas.[close bracket]".
+
+los-casilleros is a scenery thing in Estacion Atocha.
+The printed name of los-casilleros is "consignas".
+Understand "consignas" and "casilleros" and "casillero" and "consigna" and "armarios" as los-casilleros.
+The description of los-casilleros is "Filas de casilleros metálicos grises. La K-37 está en la tercera fila, a la izquierda. Cada uno tiene un teclado numérico de cuatro dígitos.".
+
+disco-carlos is a thing.
+The printed name of disco-carlos is "disco de Carlos".
+Understand "disco" and "diskette" and "floppy" and "disco carlos" and "disco bc" as disco-carlos.
+The description of disco-carlos is "[if Disco-leido is false]Un diskette de 3,5 pulgadas. La etiqueta tiene solo dos letras escritas a mano con rotulador negro: [bold type]BC[roman type]. Nada más.[else]El disco de Carlos. [bold type]BC = Banco Comercial Europeo[roman type]. Tres años esperando en esa consigna de Atocha.[end if]".
+
+[--- CONECTAR A VELVETBBS ---]
+Check dialing-velvet:
+	if Velvet-conectado is true:
+		say "Ya estás conectado a VelvetBBS." instead;
+	if Nocturno-conectado is true:
+		say "Desconéctate de NOCTURNO primero. DESCONECTAR." instead;
+	if Conectado is true:
+		say "Desconéctate de Caverna-7 primero. DESCONECTAR." instead;
+	if Mordor-conectado is true:
+		say "Desconéctate de Mordor BBS primero. DESCONECTAR." instead;
+	if the player is not in Tu cuarto:
+		say "No estás frente al terminal." instead;
+	if Fragmento4-obtenido is false:
+		say "Tienes el número en el netmail de Torquemada. Primero recoge el fragmento cuatro de Mordor BBS." instead.
+
+Carry out dialing-velvet:
+	now Velvet-conectado is true;
+	move the player to Velvet-bienvenida;
+	if Velvet-visitado is false:
+		now Velvet-visitado is true;
+		increase the score by 25;
+		say "[fixed letter spacing]ATDT946XXXXXX...[line break]RING   RING   RING   RING[line break]CONNECT 2400[line break]----------------------------------------[variable letter spacing][paragraph break]Bilbao. Cuatro tonos. La BBS de Silencia lleva funcionando desde el 89 sin un solo día de caída.[paragraph break][bracket]+ 25 puntos: conexión establecida con VelvetBBS, nodo 2:341/88.[close bracket]";
+	else:
+		say "[fixed letter spacing]ATDT946XXXXXX...[line break]CONNECT 2400[variable letter spacing][paragraph break]VelvetBBS responde.".
+
+Instead of disconnecting when Velvet-conectado is true:
+	now Velvet-conectado is false;
+	move the player to Tu cuarto;
+	say "[fixed letter spacing]NO CARRIER[variable letter spacing][paragraph break]Te desconectas de VelvetBBS. La pantalla vuelve al prompt: [bold type]C:\CAVERNA>[roman type]".
+
+Instead of going when Velvet-conectado is true and the noun is up:
+	try disconnecting.
+
+[--- HABLAR CON SILENCIA ---]
+Instead of talking to Silencia:
+	if Silencia-fase is 0:
+		now Silencia-fase is 1;
+		say "Escribes: 'Belky, 2:341/202. Me dio tu número Torquemada de Mordor. Vengo de parte de Carlos Mendoza, El_Fantasma, 2:341/199.'[paragraph break][fixed letter spacing]> ...[line break]> Tres años.[line break]> Sabía que llegaría alguien.[line break]> El fragmento está en tu correo. Al este.[variable letter spacing]";
+	else:
+		say "[fixed letter spacing]> Ya tienes lo que te dejé.[line break]> Habla con Hexer en NOCTURNO cuando tengas el cinco.[line break]> 2:341/134. Él sabe dónde está el archivo físico.[variable letter spacing]".
+
+[--- LEER NETMAIL DE SILENCIA ---]
+Instead of reading the silencia-netmail:
+	if Silencia-fase is 0:
+		say "La bandeja está vacía. Habla primero con Silencia.";
+	else if Fragmento5-obtenido is true:
+		say "Ya lo has leído.[paragraph break][bold type]Fragmento 5: KLMNO-88821-RRQST-UUVWX-44469[roman type]";
+	else:
+		now Fragmento5-obtenido is true;
+		increase the score by 45;
+		say "[fixed letter spacing]--- NETMAIL · DE: Silencia@2:341/88 -------------------[line break]Belky.[line break] [line break]FRAGMENTO 5:[line break][bold type]KLMNO-88821-RRQST-UUVWX-44469[roman type][line break] [line break]Carlos me llamó la misma tarde que a Torquemada.[line break]23:00. Me leyó el fragmento por teléfono desde una cabina.[line break]Dijo que si en tres años nadie lo reclamaba,[line break]probablemente era porque ya estaba muerto.[line break] [line break]Hexer en NOCTURNO sabe dónde está el archivo físico.[line break]2:341/134. Habla con él cuando puedas.[line break] [line break]-- S[variable letter spacing][paragraph break][bracket]+ 45 puntos: fragmento 5 recuperado.[close bracket]".
+
+[--- CONECTAR A NOCTURNO ---]
+Check dialing-nocturno:
+	if Nocturno-conectado is true:
+		say "Ya estás conectado a NOCTURNO BBS." instead;
+	if Velvet-conectado is true:
+		say "Desconéctate de VelvetBBS primero. DESCONECTAR." instead;
+	if Conectado is true:
+		say "Desconéctate de Caverna-7 primero. DESCONECTAR." instead;
+	if Mordor-conectado is true:
+		say "Desconéctate de Mordor BBS primero. DESCONECTAR." instead;
+	if the player is not in Tu cuarto:
+		say "No estás frente al terminal." instead;
+	if Fragmento5-obtenido is false:
+		say "Primero consigue el fragmento cinco. Habla con Silencia en VelvetBBS." instead.
+
+Carry out dialing-nocturno:
+	now Nocturno-conectado is true;
+	move the player to Nocturno-bienvenida;
+	increase the score by 30;
+	say "[fixed letter spacing]ATDT954XXXXXX...[line break]RING   RING[line break]CONNECT 9600[line break]----------------------------------------[variable letter spacing][paragraph break]Sevilla. Dos tonos. La BBS de Hexer no espera.[paragraph break][bracket]+ 30 puntos: conexión establecida con NOCTURNO BBS, nodo 2:341/134.[close bracket]".
+
+Instead of disconnecting when Nocturno-conectado is true:
+	now Nocturno-conectado is false;
+	move the player to Tu cuarto;
+	say "[fixed letter spacing]NO CARRIER[variable letter spacing][paragraph break]Te desconectas de NOCTURNO BBS. La pantalla vuelve al prompt: [bold type]C:\CAVERNA>[roman type]".
+
+Instead of going when Nocturno-conectado is true and the noun is up:
+	try disconnecting.
+
+[--- HABLAR CON HEXER ---]
+Instead of talking to Hexer:
+	if Hexer-hablado is false:
+		now Hexer-hablado is true;
+		increase the score by 40;
+		say "Escribes: 'Belky, 2:341/202. Vengo de Silencia. Tengo cinco fragmentos.'[paragraph break][fixed letter spacing]> Atocha.[line break]> Consigna K-37.[line break]> Código: 2110.[line break]> (21 de octubre. El día antes de que lo mataran.)[line break]> Hay un disco de 3,5. Etiqueta: BC.[line break]> El sexto fragmento está ahí dentro.[variable letter spacing][paragraph break][bracket]+ 40 puntos: localización del archivo físico. Estación de Atocha, consigna K-37, código 2110.[close bracket]";
+	else:
+		say "[fixed letter spacing]> Atocha. K-37. Código 2110.[line break]> Ya tienes todo lo que necesitas.[variable letter spacing]".
+
+[--- ABRIR CONSIGNA EN ATOCHA ---]
+Check opening-locker:
+	if the player is not in Estacion Atocha:
+		say "No hay consignas aquí." instead;
+	if Consigna-abierta is true:
+		say "La consigna K-37 ya está abierta." instead;
+	if Hexer-hablado is false:
+		say "No sabes en qué consigna ni el código de acceso." instead.
+
+Carry out opening-locker:
+	now Consigna-abierta is true;
+	now disco-carlos is in Estacion Atocha;
+	increase the score by 40;
+	say "Tecleas 2-1-1-0.[paragraph break]Un clic metálico. La puerta de la K-37 se abre.[paragraph break]Dentro hay un sobre de papel manila. Dentro del sobre, un diskette de 3,5 pulgadas. Dos letras en rotulador negro: [bold type]BC[roman type].[paragraph break]Carlos lo dejó aquí. Octubre del 91. Lleva tres años esperando en este casillero de Atocha.[paragraph break][bracket]+ 40 puntos: archivo de Carlos recuperado.[close bracket]".
+
+[--- LEER EL DISCO ---]
+Instead of reading the disco-carlos:
+	if disco-carlos is not carried by the player:
+		say "Primero coge el disco.";
+	else if the player is not in Tu cuarto:
+		say "Necesitas estar frente al terminal para leer el disco.";
+	else if Disco-leido is true:
+		say "[bold type]BC = Banco Comercial Europeo[roman type][paragraph break]Tres operaciones. Tres hombres. Uno de ellos lleva seis meses en el Congreso.";
+	else:
+		now Disco-leido is true;
+		now Fragmento6-obtenido is true;
+		increase the score by 50;
+		say "Introduces el diskette en la unidad A:.[paragraph break][fixed letter spacing]C:\>DIR A:[line break] [line break]CARLOS~1.TXT    48,210[line break]FOTOS   .ARJ  1,432,114[line break]FRAG    .TXT       43[line break]README  .TXT      312[variable letter spacing][paragraph break][fixed letter spacing]C:\>TYPE A:README.TXT[line break] [line break]Si estás leyendo esto, yo ya no estoy.[line break]BC = Banco Comercial Europeo, Sucursal Orense.[line break]Tres operaciones. Tres fechas. Tres hombres.[line break]Los nombres están en CARLOS1.TXT.[line break]El último fragmento está en FRAG.TXT.[variable letter spacing][paragraph break][fixed letter spacing]C:\>TYPE A:FRAG.TXT[line break] [line break]FRAGMENTO 6:[line break][bold type]PQRST-12348-UUVVW-XXYYZ-66670[roman type][variable letter spacing][paragraph break][fixed letter spacing]C:\>TYPE A:CARLOS1.TXT[line break] [line break]14-SEP-1991. SUCURSAL ORENSE.[line break]RAMÍREZ OLMOS, F.  · Director regional[line break]CUESTA NOGALES, A. · Responsable inversiones[line break]MARCHETTI BARROS, R. · Intermediario externo[line break] [line break]Cuatro millones de pesetas. Fondos de origen desconocido[line break]transferidos como inversión inmobiliaria.[line break]Canal: nodos FidoNet 2:341/12 y 2:341/44 usados como[line break]retransmisores cifrados en el flujo de echomail.[line break] [line break]Marchetti lleva seis meses en el Congreso de los Diputados.[variable letter spacing][paragraph break][bracket]+ 50 puntos: archivo descifrado. Fragmento 6 recuperado. Seis de seis.[close bracket]".
+
+[--- FIN DE ACTO III ---]
+Every turn when Fragmento6-obtenido is true and Acto-3-completo is false:
+	now Acto-3-completo is true;
+	say "[line break]----------------------------------------------------------[paragraph break]Seis fragmentos. Los seis juntos.[paragraph break]Un mensaje muerto del 91. Un dead drop en Embajadores. Torquemada en Valladolid, Silencia en Bilbao, Hexer en Sevilla. Un disco en una consigna de Atocha.[paragraph break]La clave está completa. Lo que Carlos encontró en septiembre del 91 — los nombres, las transferencias, el canal FidoNet — lleva tres años cifrado, esperando esto.[paragraph break]Uno de los tres hombres de la foto lleva seis meses en el Congreso de los Diputados.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FIN DEL ACTO III — EL ARCHIVO[roman type][paragraph break][bold type]===================================================[roman type][paragraph break][italic type]Acto IV: El Origen. La clave completa. El archivo descifrado. Lo que Carlos encontró no era solo un fraude.[roman type]".
+
+[================================================================
   INICIO
 ================================================================]
 
