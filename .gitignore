@@ -1,0 +1,8 @@
+# Inform 7 — solo el .ni fuente y el .ulx compilado van al repo
+# El directorio .inform es regenerable a partir del .ni
+nodo_cero.inform/
+nodo_cero.materials/
+*.blurb
+
+# macOS
+.DS_Store
