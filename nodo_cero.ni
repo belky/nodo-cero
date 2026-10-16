@@ -10,8 +10,8 @@
   Usa siempre Glulx. SpanishLanguageKit no es compatible con Z-machine.
 
   GÉNERO: Thriller / Misterio / Hacker
-  DIFICULTAD: Media · Acto I de IV
-  VERSIÓN: 0.1-acto1 (desarrollo)
+  DIFICULTAD: Media · Juego completo (IV actos)
+  VERSIÓN: 1.0 (completo)
   COMPATIBILIDAD: Inform 7 10.1.2
 
   Madrid, octubre de 1994. Son las 23:15.
@@ -102,6 +102,13 @@ The announce the score rule does nothing.
 Report requesting the score:
 	say "Puntuación: [score]/[maximum score] puntos ([turn count] turno[if turn count is 1][else]s[end if])."
 
+[-- Fin de juego: suprimir "*** You have won ***" en inglés; el juego imprime su propio texto final --]
+The print obituary headline rule does nothing.
+The print final score rule does nothing.
+
+[-- Salida en español --]
+Understand "salir del juego" and "abandonar" as quitting the game.
+
 [-- Errores de parser --]
 Rule for printing a parser error when the latest parser error is the I beg your pardon error:
 	say "No te he entendido." instead.
@@ -147,6 +154,7 @@ Turnos-tras-netmail is a number that varies. Turnos-tras-netmail is 0.
 [--- Acto II ---]
 Acto-2-completo is a truth state that varies. Acto-2-completo is false.
 Portal-visitado is a truth state that varies. Portal-visitado is false.
+Mordor-visitado is a truth state that varies. Mordor-visitado is false.
 Ropa-puesta is a truth state that varies. Ropa-puesta is false.
 Dead-drop-encontrado is a truth state that varies. Dead-drop-encontrado is false.
 Sobre-leido is a truth state that varies. Sobre-leido is false.
@@ -614,7 +622,7 @@ Every turn when Kludge-descubierto is true and Acto-1-completo is false:
 ================================================================]
 
 Carry out asking-for-help:
-	say "[fixed letter spacing]+==========================================================+[line break]|  NODO CERO — Comandos principales                        |[line break]+==========================================================+[line break]|  CONECTAR / DESCONECTAR  · entrar o salir de Caverna-7   |[line break]|  LEER [bracket]objeto[close bracket]           · leer mensajes y documentos    |[line break]|  EXAMINAR CABECERA [bracket]msg[close bracket] · cabecera técnica de un mensaje |[line break]|  EXAMINAR KLUDGE [bracket]msg[close bracket]   · líneas de control ocultas     |[line break]|  BUSCAR NODO [bracket]dirección[close bracket] · consultar libreta de nodos    |[line break]|  INSERTAR [bracket]diskette[close bracket]     · cargar diskette en lectora    |[line break]|  CARGAR ARCHIVO          · montar diskette en Ficheros   |[line break]|  LISTAR FICHEROS / DIR   · ver contenido del archivo     |[line break]|  LEER FIDO.LOG           · log de actividad FidoNet 1991 |[line break]|  LEER NODECFG.SYS        · configuración del nodo        |[line break]|  ESCRIBIR NETMAIL A [bracket]...[close bracket] · enviar correo a otro nodo    |[line break]|  HABLAR CON [bracket]persona[close bracket]    · hablar con un NPC             |[line break]+==========================================================+[line break]|  N · S · E · O / NORTE · SUR · ESTE · OESTE · moverse   |[line break]|  INVENTARIO · PUNTOS · MIRAR · EXAMINAR [bracket]objeto[close bracket]         |[line break]+==========================================================+[variable letter spacing]".
+	say "[fixed letter spacing]+==========================================================+[line break]|  NODO CERO — Comandos                                    |[line break]+==========================================================+[line break]|  [bold type]Acto I — La Caverna[roman type]                                   |[line break]|  CONECTAR / DESCONECTAR  · entrar o salir de Caverna-7   |[line break]|  LEER [bracket]mensaje[close bracket]          · leer mensajes y documentos    |[line break]|  EXAMINAR CABECERA [bracket]msg[close bracket] · cabecera técnica de un mensaje |[line break]|  EXAMINAR KLUDGE [bracket]msg[close bracket]   · líneas de control ocultas     |[line break]|  BUSCAR NODO [bracket]dirección[close bracket] · consultar libreta de nodos    |[line break]|  INSERTAR [bracket]diskette[close bracket]     · cargar diskette en lectora    |[line break]|  CARGAR ARCHIVO / DIR    · montar y ver diskette         |[line break]|  LEER FIDO.LOG           · log de actividad FidoNet      |[line break]|  LEER NODECFG.SYS        · configuración del nodo        |[line break]|  ESCRIBIR NETMAIL A [bracket]...[close bracket] · enviar correo a otro nodo    |[line break]|                                                          |[line break]|  [bold type]Acto II — La Red[roman type]                                       |[line break]|  VESTIRSE                · ponerse ropa de calle         |[line break]|  REGISTRAR BUZÓN         · buscar detrás de los buzones  |[line break]|  CONECTAR MORDOR         · conectar con Mordor BBS       |[line break]|                                                          |[line break]|  [bold type]Acto III — El Archivo[roman type]                                  |[line break]|  CONECTAR VELVETBBS      · conectar con VelvetBBS        |[line break]|  CONECTAR NOCTURNO       · conectar con NOCTURNO BBS     |[line break]|  ABRIR CONSIGNA          · abrir la consigna K-37        |[line break]|                                                          |[line break]|  [bold type]Acto IV — El Origen[roman type]                                    |[line break]|  ENSAMBLAR CLAVE         · combinar los seis fragmentos  |[line break]|  DESCIFRAR ARCHIVO       · descifrar FOTOS.ARJ           |[line break]|  LEER DEPOSICION         · leer el testimonio de Carlos  |[line break]|  PUBLICAR / ARCHIVAR / DESTRUIR · los tres finales       |[line break]|                                                          |[line break]|  [bold type]General[roman type]                                                |[line break]|  HABLAR CON [bracket]persona[close bracket]    · hablar con un NPC             |[line break]|  N S E O / NORTE SUR ESTE OESTE · moverse               |[line break]|  INVENTARIO · PUNTOS · MIRAR · EXAMINAR [bracket]objeto[close bracket]         |[line break]+==========================================================+[variable letter spacing]".
 
 [================================================================
   ACTO II: LA RED — MUNDO FÍSICO
@@ -624,7 +632,7 @@ Carry out asking-for-help:
 
 Calle Embajadores is a room in el mundo fisico.
 The printed name of Calle Embajadores is "Calle Embajadores".
-The description of Calle Embajadores is "Una calle ancha que baja hacia Lavapiés. La acera brilla mojada bajo los faroles de vapor de sodio — luz naranja, sombras largas. Los portales cerrados, las persianas metálicas echadas. En la esquina hay una churrería con las sillas patas arriba.[paragraph break]Embajadores 47 es un edificio de cuatro plantas con la fachada descascarillada. El portal tiene una puerta de cristal armado que no cierra del todo — la cerradura lleva meses rota.[if Ropa-puesta is false][paragraph break]El frío de octubre te recuerda que sigues en pijama.[end if][paragraph break]ENTRAR para acceder al portal.".
+The description of Calle Embajadores is "Una calle ancha que baja hacia Lavapiés. La acera brilla mojada bajo los faroles de vapor de sodio — luz naranja, sombras largas. Los portales cerrados, las persianas metálicas echadas. En la esquina hay una churrería con las sillas patas arriba.[paragraph break]Embajadores 47 es un edificio de cuatro plantas con la fachada descascarillada. El portal tiene una puerta de cristal armado que no cierra del todo — la cerradura lleva meses rota.[if Ropa-puesta is false][paragraph break]El frío de octubre te recuerda que sigues en pijama.[end if][paragraph break]ADENTRO para acceder al portal.".
 Calle Embajadores is south of La calle.
 
 Instead of going south from La calle when Acto-1-completo is false:
@@ -767,8 +775,12 @@ Check dialing-mordor:
 Carry out dialing-mordor:
 	now Mordor-conectado is true;
 	move the player to Mordor-bienvenida;
-	increase the score by 50;
-	say "[fixed letter spacing]ATDT983XXXXXX...[line break]RING   RING   RING[line break]CONNECT 9600[line break]----------------------------------------[variable letter spacing][paragraph break]Valladolid. Cuatro rings antes de que Mordor responda. La conexión es limpia.[paragraph break][bracket]+ 50 puntos: conexión establecida con Mordor BBS, 2:341/56.[close bracket]".
+	if Mordor-visitado is false:
+		now Mordor-visitado is true;
+		increase the score by 50;
+		say "[fixed letter spacing]ATDT983XXXXXX...[line break]RING   RING   RING[line break]CONNECT 9600[line break]----------------------------------------[variable letter spacing][paragraph break]Valladolid. Cuatro rings antes de que Mordor responda. La conexión es limpia.[paragraph break][bracket]+ 50 puntos: conexión establecida con Mordor BBS, 2:341/56.[close bracket]";
+	else:
+		say "[fixed letter spacing]ATDT983XXXXXX...[line break]CONNECT 9600[variable letter spacing][paragraph break]Mordor BBS responde.".
 
 Instead of disconnecting when Mordor-conectado is true:
 	now Mordor-conectado is false;
@@ -825,6 +837,7 @@ Velvet-visitado is a truth state that varies. Velvet-visitado is false.
 Silencia-fase is a number that varies. Silencia-fase is 0.
 Fragmento5-obtenido is a truth state that varies. Fragmento5-obtenido is false.
 Nocturno-conectado is a truth state that varies. Nocturno-conectado is false.
+Nocturno-visitado is a truth state that varies. Nocturno-visitado is false.
 Hexer-hablado is a truth state that varies. Hexer-hablado is false.
 Atocha-visitado is a truth state that varies. Atocha-visitado is false.
 Consigna-abierta is a truth state that varies. Consigna-abierta is false.
@@ -841,6 +854,9 @@ Understand "conectar nocturno" and "llamar nocturno" and "conectar nocturno bbs"
 
 Opening-locker is an action applying to nothing.
 Understand "abrir consigna" and "abrir casillero" and "abrir k-37" and "abrir locker" and "abrir k37" and "teclear codigo" and "teclear clave" as opening-locker.
+
+Dialing-terminal7 is an action applying to nothing.
+Understand "conectar terminal7" and "llamar terminal7" and "conectar terminal 7" and "llamar terminal 7" and "marcar 211" and "conectar r4d" and "llamar r4d" as dialing-terminal7.
 
 [--- Salas digitales: VelvetBBS ---]
 Velvet-bienvenida is a room in el mundo digital.
@@ -966,8 +982,12 @@ Check dialing-nocturno:
 Carry out dialing-nocturno:
 	now Nocturno-conectado is true;
 	move the player to Nocturno-bienvenida;
-	increase the score by 30;
-	say "[fixed letter spacing]ATDT954XXXXXX...[line break]RING   RING[line break]CONNECT 9600[line break]----------------------------------------[variable letter spacing][paragraph break]Sevilla. Dos tonos. La BBS de Hexer no espera.[paragraph break][bracket]+ 30 puntos: conexión establecida con NOCTURNO BBS, nodo 2:341/134.[close bracket]".
+	if Nocturno-visitado is false:
+		now Nocturno-visitado is true;
+		increase the score by 30;
+		say "[fixed letter spacing]ATDT954XXXXXX...[line break]RING   RING[line break]CONNECT 9600[line break]----------------------------------------[variable letter spacing][paragraph break]Sevilla. Dos tonos. La BBS de Hexer no espera.[paragraph break][bracket]+ 30 puntos: conexión establecida con NOCTURNO BBS, nodo 2:341/134.[close bracket]";
+	else:
+		say "[fixed letter spacing]ATDT954XXXXXX...[line break]CONNECT 9600[variable letter spacing][paragraph break]NOCTURNO BBS responde.".
 
 Instead of disconnecting when Nocturno-conectado is true:
 	now Nocturno-conectado is false;
@@ -976,6 +996,16 @@ Instead of disconnecting when Nocturno-conectado is true:
 
 Instead of going when Nocturno-conectado is true and the noun is up:
 	try disconnecting.
+
+[--- LLAMAR A TERMINAL7 (nodo inactivo — red herring narrativo) ---]
+Check dialing-terminal7:
+	if the player is not in Tu cuarto:
+		say "No estás frente al terminal." instead;
+	if Fragmento4-obtenido is false:
+		say "No tienes el número de TERMINAL7." instead.
+
+Carry out dialing-terminal7:
+	say "[fixed letter spacing]ATDT93XXXXXXX...[line break]RING   RING   RING   RING   RING[line break]RING   RING   RING   RING   RING[line break]RING   RING   RING   RING[line break]NO CARRIER[variable letter spacing][paragraph break]Catorce tonos sin respuesta. El nodo 2:341/211 no contesta. Puede que esté caído, o que r4d haya desconectado el sistema. Torquemada no sabía quién tenía los fragmentos cinco y seis — y este nodo no da señales de vida esta noche.".
 
 [--- HABLAR CON HEXER ---]
 Instead of talking to Hexer:
