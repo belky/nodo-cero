@@ -48,12 +48,26 @@ Understand "puntuacion" and "puntuación" and "puntos" as requesting the score.
 Understand "esperar" as waiting.
 Understand "abrir [something]" as opening.
 Understand "cerrar [something]" as closing.
+Understand "z" as waiting.
+Understand "x [something]" as examining.
+Understand "l" as looking.
+Understand "i" as taking inventory.
+Understand "mirar [something]" as examining.
+Understand "ver [something]" as examining.
 
 [-- Mensajes de acciones — reglas Report/Check --]
 Report taking something: say "Cogido."; rule succeeds.
 Report dropping something: say "Dejado."; rule succeeds.
 The standard report waiting rule does nothing.
-Report waiting: say "El tiempo pasa."
+Report waiting:
+	if the player is in Tu cuarto:
+		say "Los ventiladores del 486 zumban. El cursor del prompt espera. Fuera, algún coche pasa por la calle.";
+	else if the player is in El salon:
+		say "El Telediario. El presentador lee. Tu madre no pregunta nada.";
+	else if the player is in el mundo digital:
+		say "El cursor de la BBS parpadea. La línea sigue activa.";
+	else:
+		say "El tiempo pasa.".
 Report opening something: say "Abierto."; rule succeeds.
 Report closing something: say "Cerrado."; rule succeeds.
 
@@ -166,7 +180,7 @@ Fragmento4-obtenido is a truth state that varies. Fragmento4-obtenido is false.
 [=== ACCIONES PERSONALIZADAS ===]
 
 Connecting is an action applying to nothing.
-Understand "conectar" and "iniciar sesion" and "iniciar sesión" and "encender terminal" and "usar terminal" and "entrar en bbs" and "entrar bbs" as connecting.
+Understand "conectar" and "iniciar sesion" and "iniciar sesión" and "encender terminal" and "usar terminal" and "usar modem" and "entrar en bbs" and "entrar bbs" as connecting.
 
 Understand "adentro" and "dentro" as inside.
 
@@ -177,7 +191,7 @@ Reading is an action applying to one thing.
 Understand "leer [something]" and "consultar [something]" and "lee [something]" as reading.
 
 Talking to is an action applying to one thing.
-Understand "hablar con [something]" and "habla con [something]" and "hablar a [something]" as talking to.
+Understand "hablar con [something]" and "habla con [something]" and "hablar a [something]" and "hablar [something]" as talking to.
 
 Inserting-diskette is an action applying to one thing.
 Understand "insertar [something]" and "cargar [something]" and "meter [something] en lectora" and "poner [something] en lectora" as inserting-diskette.
@@ -204,7 +218,7 @@ Node-search-66 is an action applying to nothing.
 Understand "buscar nodo 66" and "buscar 66" and "buscar netrunner" and "nodo 66" as node-search-66.
 
 Writing-to-netrunner is an action applying to nothing.
-Understand "escribir netmail a netrunner" and "escribir a netrunner" and "contactar netrunner" and "enviar mensaje a netrunner" and "escribir netmail" as writing-to-netrunner.
+Understand "escribir netmail a netrunner" and "escribir a netrunner" and "contactar netrunner" and "enviar mensaje a netrunner" and "escribir netmail" and "responder" and "contestar" as writing-to-netrunner.
 
 Reading-fido-log is an action applying to nothing.
 Understand "leer fido log" and "ver fido log" and "leer fido" and "cat fido" as reading-fido-log.
@@ -227,6 +241,32 @@ Understand "registrar buzon" and "buscar buzon" and "registrar buzones" and "bus
 Dialing-mordor is an action applying to nothing.
 Understand "conectar mordor" and "llamar mordor" and "marcar mordor" and "conectar a mordor" and "llamar a mordor" and "marcar 983" and "conectar mordor bbs" as dialing-mordor.
 
+[-- FUMAR --]
+Fumando is an action applying to nothing.
+Understand "fumar" and "encender cigarrillo" and "encender ducados" and "fumar ducado" as fumando.
+Check fumando:
+	if the paquete-ducados is not carried by the player:
+		say "No tienes tabaco. Los Ducados están en la cocina." instead.
+Carry out fumando:
+	say "Enciendes un Ducados negro sin filtro. El humo sube lento hacia la pantalla. La noche avanza.".
+
+[-- ESCUCHAR --]
+Escuchando is an action applying to nothing.
+Understand "escuchar" and "oír" and "oir" and "escucha" and "oye" and "oir ambiente" as escuchando.
+Carry out escuchando:
+	if the player is in Tu cuarto:
+		say "El zumbido de los ventiladores del 486. El clic del disco duro cada vez que el terminal escribe en el log. Desde el salón, el Telediario a volumen muy bajo.";
+	else if the player is in El salon:
+		say "El Telediario. El presentador lee las noticias del mundo. Desde el pasillo, el zumbido del equipo de tu cuarto.";
+	else if the player is in el mundo digital:
+		say "El tono de portadora. 9600 baudios. Casi musical si te quedas quieto un momento.";
+	else:
+		say "La noche. El frío. Octubre.".
+
+[-- Fallback para leer objetos sin regla específica --]
+Carry out reading something:
+	try examining the noun.
+
 [================================================================
   MUNDO FÍSICO — APARTAMENTO Y CALLE
 ================================================================]
@@ -235,7 +275,7 @@ Understand "conectar mordor" and "llamar mordor" and "marcar mordor" and "conect
 
 Tu cuarto is a room in el mundo fisico.
 The printed name of Tu cuarto is "Tu cuarto / Caverna-7 HQ".
-The description of Tu cuarto is "El cuarto huele a cigarrillos fríos y a aire de equipo encendido desde hace horas. La pantalla Philips de 14 pulgadas tira su luz verde-blanca sobre la mesa de trabajo, donde el terminal lleva encendido desde las seis de la tarde. A la derecha, la cadena de música con el casete de los Pixies a medias. La cama sin hacer ocupa la esquina izquierda.[paragraph break][if modem-activo is true]La luz CARR del módem parpadea en verde: hay conexión activa.[else]El módem acaba de emitir un pitido corto y ha vuelto al silencio. La señal de que has recibido un paquete FidoNet.[end if][paragraph break]El pasillo está al norte.".
+The description of Tu cuarto is "El cuarto huele a cigarrillos fríos y a aire de equipo encendido desde hace horas. La pantalla Philips de 14 pulgadas tira su luz verde-blanca sobre la mesa de trabajo, donde el terminal lleva encendido desde las seis de la tarde. A la derecha, la cadena de música con el casete de los Pixies a medias. La cama sin hacer ocupa la esquina izquierda.[paragraph break][if modem-activo is true]La luz CARR del módem parpadea en verde: hay conexión activa.[else]El módem descansa en silencio. Su LED de recepción sigue encendido — el paquete de esta noche está ahí.[end if][paragraph break]El pasillo está al norte.".
 
 The terminal is a fixed in place supporter in Tu cuarto.
 The description of the terminal is "Un 486 DX2 a 66 MHz con 8 MB de RAM y 420 MB de disco duro. La pantalla muestra el prompt de DOS: [bold type]C:\CAVERNA>[roman type][paragraph break]Desde aquí llevas cuatro años corriendo Caverna-7: una de las treinta y tantas BBSes de Madrid, especializada en seguridad informática y la escena underground española. Tienes doce usuarios registrados.[if diskette-insertado is true][paragraph break]La lectora de 3½ tiene el diskette FIDO-ARCH 91 insertado.[end if]".
@@ -613,7 +653,7 @@ Every turn when Netrunner-contactado is true and Respuesta-netrunner is false:
   DETECCIÓN DE FIN DE ACTO I
 ================================================================]
 
-Every turn when Kludge-descubierto is true and Acto-1-completo is false:
+Every turn when Kludge-descubierto is true and Respuesta-netrunner is true and Acto-1-completo is false:
 	now Acto-1-completo is true;
 	say "[line break]----------------------------------------------------------[paragraph break]Tienes dos fragmentos cifrados, una dirección física en Madrid y la confirmación de Netrunner: el paquete llevaba tres años archivado en Alcalá de Henares y alguien lo reactivó esta noche.[paragraph break]Carlos Mendoza García — El_Fantasma — murió el 23 de octubre de 1991 en la carretera de La Coruña. El mismo día que generó el mensaje. Lo programó sabiendo que iba a morir.[paragraph break]El dead drop está en Calle Embajadores 47, Bajo B. A diez minutos caminando desde aquí.[paragraph break]Y el nodo 2:341/56 — Mordor BBS, Valladolid — es el siguiente punto de la ruta.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FIN DEL ACTO I — LA CAVERNA[roman type][paragraph break][bold type]===================================================[roman type][paragraph break][italic type]Acto II: La Red. Seis nodos. Seis fragmentos del mensaje. Seis personas que no quieren que los encuentres.[roman type]".
 
@@ -745,6 +785,9 @@ Instead of reading the sobre-embajadores:
 		increase the score by 35;
 		say "Rompes la cinta americana con los dedos. El papel lleva tres años aquí — un poco amarillento, un poco húmedo en los bordes, pero intacto.[paragraph break]Dentro:[line break]  — Una fotografía en blanco y negro, 10×15[line break]  — Una nota doblada en cuatro[line break]  — Un papel con cinco grupos de caracteres[paragraph break][fixed letter spacing]FRAGMENTO 3:[line break][bold type]MNTRI-00047-QQZXW-PPLOE-33318[roman type][variable letter spacing][paragraph break][bracket]+ 35 puntos: sobre abierto, fragmento 3 recuperado.[close bracket]".
 
+Instead of opening the sobre-embajadores:
+	try reading the sobre-embajadores.
+
 Instead of reading the nota-manuscrita:
 	say "[description of the nota-manuscrita]".
 
@@ -759,6 +802,9 @@ Instead of examining the foto-carlos:
 		now Foto-examinada is true;
 		increase the score by 40;
 		say "La miras despacio, acercándola a la luz.[paragraph break]El edificio del fondo tiene un rótulo que se corta en el margen del encuadre. Se lee: [bold type]BANCO COMERCIAL EUROPEO — Sucursal Orense[roman type].[paragraph break]Fecha en el dorso: 14 sep 1991. Los tres hombres de traje no miran a la cámara. Carlos los fotografiaba sin que lo supieran. Uno lleva una cartera de cuero marrón cerrada. La luz del atardecer alarga las sombras.[paragraph break]Seis semanas después, Carlos moría en la Carretera de La Coruña, km.14.[paragraph break][bracket]+ 40 puntos: Banco Comercial Europeo, Orense. 14 sep 1991.[close bracket]".
+
+Instead of reading the foto-carlos:
+	try examining the foto-carlos.
 
 [--- CONECTAR A MORDOR BBS ---]
 
