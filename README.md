@@ -4,7 +4,7 @@ Aventura de ficción interactiva en Inform 7 / Glulx — en desarrollo.
 
 **Género:** Thriller hacker · Misterio · Drama histórico  
 **Ambientación:** Madrid, octubre de 1994  
-**Motor:** Inform 7 10.1.2 · SpanishLanguageKit r10.1 · Glulx
+**Motor:** Inform 7 10.1.2 · Glulx (soporte español nativo, sin extensiones)
 
 ---
 
@@ -36,14 +36,16 @@ Alguien murió para enviarlo.
 
 ## Cómo compilar
 
-Requiere [Inform 7 10.1.2](https://ganelson.github.io/inform-website/) con [SpanishLanguageKit r10.1](https://github.com/i7/extensions/tree/master/Sebastian%20Arg/Spanish%20Language).
+Requiere [Inform 7 10.1.2](https://ganelson.github.io/inform-website/). Sin extensiones adicionales — el soporte español (verbos, direcciones, mensajes de parser) está integrado directamente en el fuente.
 
-**⚠️ Compilar siempre a Glulx** — SpanishLanguageKit no es compatible con Z-machine.
+**Compilar siempre a Glulx (formato 32 bits):**
 
 ```
 ni --format=Inform6/32 --project nodo_cero.inform
-inform6 -G -v8 -E2 -~S <auto.inf> nodo_cero.ulx
+inform6 -G -v8 -E2 -~S output.inf nodo_cero.ulx
 ```
+
+O abre `nodo_cero.inform` con la aplicación Inform.app y pulsa **Go**.
 
 El `.ulx` resultante se puede jugar con [Gargoyle](https://github.com/garglk/garglk), [Lectrote](https://github.com/erkyrath/lectrote) o cualquier intérprete Glulx.
 
