@@ -6,7 +6,7 @@
 
   PARA COMPILAR (Glulx / .ulx):
 	ni --format=Inform6/32 --project nodo_cero.inform
-	inform6 -G -v8 -E2 -~S <auto.inf> nodo_cero.ulx
+	inform6 -G -E2 -~S output.inf nodo_cero.ulx
   Usa siempre Glulx. SpanishLanguageKit no es compatible con Z-machine.
 
   GÉNERO: Thriller / Misterio / Hacker
@@ -144,10 +144,23 @@ Acto-1-completo is a truth state that varies. Acto-1-completo is false.
 Virus32-dio-pista is a truth state that varies. Virus32-dio-pista is false.
 Turnos-tras-netmail is a number that varies. Turnos-tras-netmail is 0.
 
+[--- Acto II ---]
+Acto-2-completo is a truth state that varies. Acto-2-completo is false.
+Portal-visitado is a truth state that varies. Portal-visitado is false.
+Ropa-puesta is a truth state that varies. Ropa-puesta is false.
+Dead-drop-encontrado is a truth state that varies. Dead-drop-encontrado is false.
+Sobre-leido is a truth state that varies. Sobre-leido is false.
+Foto-examinada is a truth state that varies. Foto-examinada is false.
+Mordor-conectado is a truth state that varies. Mordor-conectado is false.
+Torquemada-fase is a number that varies. Torquemada-fase is 0.
+Fragmento4-obtenido is a truth state that varies. Fragmento4-obtenido is false.
+
 [=== ACCIONES PERSONALIZADAS ===]
 
 Connecting is an action applying to nothing.
 Understand "conectar" and "iniciar sesion" and "iniciar sesión" and "encender terminal" and "usar terminal" and "entrar en bbs" and "entrar bbs" as connecting.
+
+Understand "adentro" and "dentro" as inside.
 
 Disconnecting is an action applying to nothing.
 Understand "desconectar" and "cerrar sesion" and "cerrar sesión" and "colgar" and "salir de bbs" as disconnecting.
@@ -196,6 +209,15 @@ Understand "leer baja 199" and "ver baja 199" and "leer baja" as reading-baja-19
 
 Asking-for-help is an action applying to nothing.
 Understand "ayuda" and "help" and "comandos" and "ayudar" as asking-for-help.
+
+Getting-dressed is an action applying to nothing.
+Understand "vestirse" and "ponerse ropa" and "cambiarme" and "ponerme ropa" and "ponerme algo" as getting-dressed.
+
+Searching-mailbox is an action applying to nothing.
+Understand "registrar buzon" and "buscar buzon" and "registrar buzones" and "buscar detras del buzon" and "buscar bajo b" and "registrar bajo b" and "buscar sobre" as searching-mailbox.
+
+Dialing-mordor is an action applying to nothing.
+Understand "conectar mordor" and "llamar mordor" and "marcar mordor" and "conectar a mordor" and "llamar a mordor" and "marcar 983" and "conectar mordor bbs" as dialing-mordor.
 
 [================================================================
   MUNDO FÍSICO — APARTAMENTO Y CALLE
@@ -301,7 +323,7 @@ La escalera is north of El pasillo.
 
 La calle is a room in el mundo fisico.
 The printed name of La calle is "Calle de los Relatores".
-The description of La calle is "Las once de la noche. Calle de los Relatores, entre Tirso de Molina y el Rastro. El frío de octubre moja el asfalto. Hay una cabina telefónica Telefónica en la esquina — de las verdes, modelo antiguo. La entrada al edificio queda al norte.[paragraph break]El bar de la esquina tiene la persiana a medias. Algún coche pasa de vez en cuando. Hace frío para estar en pijama.".
+The description of La calle is "Las once de la noche. Calle de los Relatores, entre Tirso de Molina y el Rastro. El frío de octubre moja el asfalto. Hay una cabina telefónica Telefónica en la esquina — de las verdes, modelo antiguo. La entrada al edificio queda al norte.[paragraph break]El bar de la esquina tiene la persiana a medias. Algún coche pasa de vez en cuando. Hace frío para estar en pijama.[if Acto-1-completo is true][paragraph break]Al sur sigue Lavapiés. A diez minutos andando, la calle Embajadores.[end if]".
 La calle is south of La escalera.
 
 The cabina is a fixed in place thing in La calle.
@@ -593,6 +615,205 @@ Every turn when Kludge-descubierto is true and Acto-1-completo is false:
 
 Carry out asking-for-help:
 	say "[fixed letter spacing]+==========================================================+[line break]|  NODO CERO — Comandos principales                        |[line break]+==========================================================+[line break]|  CONECTAR / DESCONECTAR  · entrar o salir de Caverna-7   |[line break]|  LEER [bracket]objeto[close bracket]           · leer mensajes y documentos    |[line break]|  EXAMINAR CABECERA [bracket]msg[close bracket] · cabecera técnica de un mensaje |[line break]|  EXAMINAR KLUDGE [bracket]msg[close bracket]   · líneas de control ocultas     |[line break]|  BUSCAR NODO [bracket]dirección[close bracket] · consultar libreta de nodos    |[line break]|  INSERTAR [bracket]diskette[close bracket]     · cargar diskette en lectora    |[line break]|  CARGAR ARCHIVO          · montar diskette en Ficheros   |[line break]|  LISTAR FICHEROS / DIR   · ver contenido del archivo     |[line break]|  LEER FIDO.LOG           · log de actividad FidoNet 1991 |[line break]|  LEER NODECFG.SYS        · configuración del nodo        |[line break]|  ESCRIBIR NETMAIL A [bracket]...[close bracket] · enviar correo a otro nodo    |[line break]|  HABLAR CON [bracket]persona[close bracket]    · hablar con un NPC             |[line break]+==========================================================+[line break]|  N · S · E · O / NORTE · SUR · ESTE · OESTE · moverse   |[line break]|  INVENTARIO · PUNTOS · MIRAR · EXAMINAR [bracket]objeto[close bracket]         |[line break]+==========================================================+[variable letter spacing]".
+
+[================================================================
+  ACTO II: LA RED — MUNDO FÍSICO
+================================================================]
+
+[--- CALLE EMBAJADORES ---]
+
+Calle Embajadores is a room in el mundo fisico.
+The printed name of Calle Embajadores is "Calle Embajadores".
+The description of Calle Embajadores is "Una calle ancha que baja hacia Lavapiés. La acera brilla mojada bajo los faroles de vapor de sodio — luz naranja, sombras largas. Los portales cerrados, las persianas metálicas echadas. En la esquina hay una churrería con las sillas patas arriba.[paragraph break]Embajadores 47 es un edificio de cuatro plantas con la fachada descascarillada. El portal tiene una puerta de cristal armado que no cierra del todo — la cerradura lleva meses rota.[if Ropa-puesta is false][paragraph break]El frío de octubre te recuerda que sigues en pijama.[end if][paragraph break]ENTRAR para acceder al portal.".
+Calle Embajadores is south of La calle.
+
+Instead of going south from La calle when Acto-1-completo is false:
+	say "No tienes razón para alejarte ahora. El mensaje de 2:341/199 todavía no te ha dado destino.".
+
+[--- PORTAL EMBAJADORES 47 ---]
+
+Portal Embajadores is a room in el mundo fisico.
+The printed name of Portal Embajadores is "Portal · Embajadores 47".
+The description of Portal Embajadores is "Baldosas hidráulicas rojas y negras, la mayoría agrietadas. Una escalera de madera que cruje desde el primer peldaño. La bombilla es de 25 vatios.[paragraph break]En la pared izquierda, seis buzones de hierro pintados de negro. Cinco tienen etiquetas mecanografiadas con apellidos. El del Bajo B lleva solo una pegatina amarillenta — sin nombre.[if Dead-drop-encontrado is false][paragraph break]Entre la parte trasera del buzón B y la pared hay un hueco de dos centímetros. Algo podría haberse guardado ahí. REGISTRAR BUZÓN para investigarlo.[end if][paragraph break]La calle queda al sur.".
+Portal Embajadores is inside from Calle Embajadores.
+
+The los-buzones is a fixed in place thing in Portal Embajadores.
+The printed name of the los-buzones is "buzones".
+Understand "buzon" and "buzones" and "buzón" and "buzon b" and "buzón b" and "bajo b" and "casillero" as the los-buzones.
+The description of the los-buzones is "Seis buzones de hierro negro. Cinco tienen apellidos. El del Bajo B lleva solo una pegatina sin nombre.[if Dead-drop-encontrado is false] Entre la parte trasera y la pared hay un hueco.[end if]".
+The los-buzones is scenery.
+
+After going to Portal Embajadores when Portal-visitado is false:
+	now Portal-visitado is true;
+	increase the score by 20;
+	say "[bracket]+ 20 puntos: portal de Embajadores 47 alcanzado.[close bracket]".
+
+[--- OBJETOS DEL DEAD DROP ---]
+
+The sobre-embajadores is a thing.
+The printed name of the sobre-embajadores is "sobre Manila".
+Understand "sobre" and "sobre manila" and "sobre sellado" and "sobre embajadores" as the sobre-embajadores.
+The description of the sobre-embajadores is "[if sobre-leido is false]Un sobre Manila A4 sellado con cinta americana. En la cubierta, a lápiz: [bold type]Belky — cuando llegue el mensaje[roman type]. LEER SOBRE para abrirlo.[else]Ya abierto. Contenía: foto de Carlos, nota manuscrita, fragmento 3.[end if]".
+
+The foto-carlos is a thing.
+The printed name of the foto-carlos is "foto de Carlos".
+Understand "foto" and "fotografía" and "fotografia" and "foto carlos" and "imagen" as the foto-carlos.
+The description of the foto-carlos is "[if Foto-examinada is false]Una fotografía 10×15 en blanco y negro. Carlos Mendoza García de pie frente a un edificio de oficinas. Tres hombres de traje en el fondo, de espaldas. Al dorso, a bolígrafo: [bold type]14 sep 1991[roman type]. Seis semanas antes de su muerte.[paragraph break]El rótulo del edificio queda casi fuera de encuadre. EXAMINAR FOTO con más detenimiento para leerlo.[else]El edificio del fondo: [bold type]BANCO COMERCIAL EUROPEO — Sucursal Orense[roman type]. 14 sep 1991. Carlos estaba siguiendo a alguien sin que lo supieran. Seis semanas después moría en la Coruña km.14.[end if]".
+
+The nota-manuscrita is a thing.
+The printed name of the nota-manuscrita is "nota manuscrita".
+Understand "nota" and "nota manuscrita" and "carta" and "apunte" as the nota-manuscrita.
+The description of the nota-manuscrita is "[fixed letter spacing]B —[line break] [line break]si lees esto es q el mensaje llegó.[line break]guarda los fragmentos.[line break] [line break]los seis son necesarios.[line break]ninguno sirve solo.[line break] [line break]el que buscas en mordor:[line break]2:341/56  contraseña: DARKNODE91[line break]torquemada sabe quién soy.[line break]confía en él.[line break] [line break]no hables con nadie más.[line break] [line break]— C.M.[variable letter spacing]".
+
+[================================================================
+  ACTO II: LA RED — MUNDO DIGITAL (MORDOR BBS)
+================================================================]
+
+[--- MORDOR BBS: BIENVENIDA ---]
+
+Mordor-bienvenida is a room in el mundo digital.
+The printed name of Mordor-bienvenida is "Mordor BBS :: Bienvenida".
+The description of Mordor-bienvenida is "[fixed letter spacing]+==========================================================+[line break]|  MORDOR BBS  ·  Valladolid  ·  FidoNet 2:341/56          |[line break]|  SysOp: Torquemada  ·  9600 bps  ·  ZModem               |[line break]|  [italic type]'Lo que está muerto puede volver.'[roman type]                      |[line break]+==========================================================+[variable letter spacing][paragraph break][if Torquemada-fase is 0][bold type]IDENTIFÍCATE O DESCONÉCTATE. SysOp monitoring.[roman type][paragraph break]HABLAR CON TORQUEMADA para identificarte.[else if Torquemada-fase < 3]Torquemada está en línea. HABLAR CON TORQUEMADA para continuar.[else]Torquemada está en línea. El correo está al este.[end if][paragraph break]DESCONECTAR para salir.".
+
+[--- MORDOR BBS: CORREO ---]
+
+Mordor-correo is a room in el mundo digital.
+The printed name of Mordor-correo is "Mordor BBS :: Correo".
+The description of Mordor-correo is "Bandeja de correo de Mordor.[paragraph break][fixed letter spacing]Mensajes:[line break][if Torquemada-fase >= 3 and Fragmento4-obtenido is false]  [bold type]1[roman type]  DE: Torquemada@2:341/56  ASUNTO: Para cuando llegues  [bold type]*NUEVO[roman type][else if Fragmento4-obtenido is true]  1  DE: Torquemada@2:341/56  ASUNTO: Para cuando llegues[else]  (vacío)[end if][variable letter spacing][paragraph break]LEER MENSAJE para abrir. Bienvenida al oeste.".
+Mordor-correo is east of Mordor-bienvenida.
+
+[--- NPC: TORQUEMADA ---]
+
+Torquemada is a person in Mordor-bienvenida.
+Understand "torquemada" and "sysop" and "sysop mordor" as Torquemada.
+The description of Torquemada is "[if Torquemada-fase is 0]Solo un handle en el sistema. Llevas cuatro años cruzando correo por su nodo sin hablar directamente.[else if Torquemada-fase < 3]Está en línea. Sus respuestas son cortas y calculadas. Lleva tres años esperando esto.[else]Ha hablado. Sabe quién eras y por qué estás aquí.[end if]".
+
+[--- NETMAIL DE TORQUEMADA ---]
+
+The torquemada-netmail is a fixed in place thing in Mordor-correo.
+The printed name of the torquemada-netmail is "mensaje de Torquemada".
+Understand "mensaje torquemada" and "mensaje 1" and "mensaje" and "correo mordor" as the torquemada-netmail.
+
+[================================================================
+  REGLAS DE ACCIÓN — ACTO II
+================================================================]
+
+[--- VESTIRSE ---]
+
+Check getting-dressed:
+	if the player is not in Tu cuarto:
+		say "No estás en tu cuarto." instead;
+	if Ropa-puesta is true:
+		say "Ya llevas ropa de calle." instead.
+
+Carry out getting-dressed:
+	now Ropa-puesta is true;
+	say "Te pones unos vaqueros oscuros, la camiseta de los Pixies y la cazadora de cuero. Botas de punta de acero. En tres minutos estás listo para salir.[paragraph break]Son las doce menos cuarto de la noche.".
+
+[--- REGISTRAR BUZÓN ---]
+
+Check searching-mailbox:
+	if the player is not in Portal Embajadores:
+		say "No hay buzones que registrar aquí." instead.
+
+Carry out searching-mailbox:
+	if Dead-drop-encontrado is true:
+		say "Ya has recogido el sobre. El hueco está vacío.";
+	else:
+		now Dead-drop-encontrado is true;
+		increase the score by 25;
+		now the sobre-embajadores is carried by the player;
+		say "Metes los dedos en el hueco entre el buzón B y la pared.[paragraph break]Hay algo. Un sobre Manila doblado en dos, con la cinta americana vieja todavía pegada al hormigón. Lo arrancas con cuidado. Tres años en el frío del portal.[paragraph break]En la cubierta, a lápiz, con una letra que reconoces de las postales de la red: [bold type]Belky — cuando llegue el mensaje[roman type].[paragraph break][bracket]+ 25 puntos: dead drop encontrado y recuperado.[close bracket]".
+
+[--- LEER SOBRE ---]
+
+Instead of reading the sobre-embajadores:
+	if sobre-leido is true:
+		say "Ya lo has abierto.[paragraph break][bold type]Fragmento 3: MNTRI-00047-QQZXW-PPLOE-33318[roman type][paragraph break]Dentro están también la foto de Carlos y la nota manuscrita.";
+	else:
+		now sobre-leido is true;
+		now the foto-carlos is carried by the player;
+		now the nota-manuscrita is carried by the player;
+		increase the score by 35;
+		say "Rompes la cinta americana con los dedos. El papel lleva tres años aquí — un poco amarillento, un poco húmedo en los bordes, pero intacto.[paragraph break]Dentro:[line break]  — Una fotografía en blanco y negro, 10×15[line break]  — Una nota doblada en cuatro[line break]  — Un papel con cinco grupos de caracteres[paragraph break][fixed letter spacing]FRAGMENTO 3:[line break][bold type]MNTRI-00047-QQZXW-PPLOE-33318[roman type][variable letter spacing][paragraph break][bracket]+ 35 puntos: sobre abierto, fragmento 3 recuperado.[close bracket]".
+
+Instead of reading the nota-manuscrita:
+	say "[description of the nota-manuscrita]".
+
+[--- EXAMINAR FOTO ---]
+
+Instead of examining the foto-carlos:
+	if Foto-examinada is true:
+		say "[description of the foto-carlos]";
+	else if sobre-leido is false:
+		say "Aún no has abierto el sobre.";
+	else:
+		now Foto-examinada is true;
+		increase the score by 40;
+		say "La miras despacio, acercándola a la luz.[paragraph break]El edificio del fondo tiene un rótulo que se corta en el margen del encuadre. Se lee: [bold type]BANCO COMERCIAL EUROPEO — Sucursal Orense[roman type].[paragraph break]Fecha en el dorso: 14 sep 1991. Los tres hombres de traje no miran a la cámara. Carlos los fotografiaba sin que lo supieran. Uno lleva una cartera de cuero marrón cerrada. La luz del atardecer alarga las sombras.[paragraph break]Seis semanas después, Carlos moría en la Carretera de La Coruña, km.14.[paragraph break][bracket]+ 40 puntos: Banco Comercial Europeo, Orense. 14 sep 1991.[close bracket]".
+
+[--- CONECTAR A MORDOR BBS ---]
+
+Check dialing-mordor:
+	if Mordor-conectado is true:
+		say "Ya estás conectado a Mordor BBS." instead;
+	if Conectado is true:
+		say "Desconéctate de Caverna-7 primero. DESCONECTAR." instead;
+	if the player is not in Tu cuarto:
+		say "No estás frente al terminal." instead;
+	if Sobre-leido is false:
+		say "Tienes el número de Mordor en la libreta. Pero antes de llamar, revisa el dead drop de Embajadores." instead.
+
+Carry out dialing-mordor:
+	now Mordor-conectado is true;
+	move the player to Mordor-bienvenida;
+	increase the score by 50;
+	say "[fixed letter spacing]ATDT983XXXXXX...[line break]RING   RING   RING[line break]CONNECT 9600[line break]----------------------------------------[variable letter spacing][paragraph break]Valladolid. Cuatro rings antes de que Mordor responda. La conexión es limpia.[paragraph break][bracket]+ 50 puntos: conexión establecida con Mordor BBS, 2:341/56.[close bracket]".
+
+Instead of disconnecting when Mordor-conectado is true:
+	now Mordor-conectado is false;
+	move the player to Tu cuarto;
+	say "[fixed letter spacing]NO CARRIER[variable letter spacing][paragraph break]Te desconectas de Mordor BBS. La pantalla vuelve al prompt de DOS: [bold type]C:\CAVERNA>[roman type]".
+
+Instead of going when Mordor-conectado is true and the noun is up:
+	try disconnecting.
+
+[--- HABLAR CON TORQUEMADA ---]
+
+Instead of talking to Torquemada:
+	if Torquemada-fase is 0:
+		now Torquemada-fase is 1;
+		say "Escribes: 'Soy Belky. 2:341/202. He recibido el mensaje de 2:341/199.'[paragraph break]Dos minutos de silencio. La luz CARR del módem no parpadea — la conexión sigue activa, esperando.[paragraph break][fixed letter spacing]> Cuánto tiempo.[line break]> Tres años y dos semanas, exactamente.[line break]> ¿Tienes la contraseña?[variable letter spacing]";
+	else if Torquemada-fase is 1:
+		if nota-manuscrita is carried by the player:
+			now Torquemada-fase is 2;
+			increase the score by 50;
+			say "Escribes la contraseña de la nota de Carlos: DARKNODE91.[paragraph break][fixed letter spacing]> Correcto.[line break]> Carlos me dijo que alguien vendría con eso algún día.[line break]> Pensé que sería antes.[variable letter spacing][paragraph break]Torquemada está hablando. HABLAR CON TORQUEMADA para continuar.[paragraph break][bracket]+ 50 puntos: autenticación en Mordor BBS, confianza establecida.[close bracket]";
+		else:
+			say "[fixed letter spacing]> Necesito la contraseña de autenticación.[line break]> Carlos la dejó para quien viniera a buscarlo.[line break]> Sin contraseña, no hay conversación.[variable letter spacing][paragraph break]Revisa el dead drop de Embajadores 47. La contraseña está en la nota que dejó Carlos.";
+	else if Torquemada-fase is 2:
+		now Torquemada-fase is 3;
+		say "[fixed letter spacing]> Carlos me llamó dos días antes de morir.[line break]> 21 de octubre del 91. Tarde. Desde una cabina.[line break]> Me dijo que tenía pruebas de algo gordo.[line break]> Alguien usaba los nodos FidoNet como conducto.[line break]> Datos cifrados ocultos en el flujo normal de echomail.[line break]> Transferencias financieras. Mucho dinero. Nombres.[line break] [line break]> Partió la clave en seis fragmentos.[line break]> Los distribuyó entre seis sysops que no se conocían.[line break]> Yo guardaba el cuatro.[line break] [line break]> Dos días después murió en la Carretera de La Coruña.[line break]> No fue un accidente.[variable letter spacing][paragraph break]Silencio en la línea. Luego:[paragraph break][fixed letter spacing]> El fragmento cuatro está en tu bandeja de correo.[line break]> Al este desde aquí.[variable letter spacing]";
+	else:
+		say "[fixed letter spacing]> Ve a por los tres que faltan.[line break]> 2:341/88   · VelvetBBS  · Bilbao    · Silencia[line break]> 2:341/134  · NOCTURNO   · Sevilla   · Hexer[line break]> 2:341/211  · TERMINAL7  · Barcelona · r4d[line break] [line break]> Los otros dos, Carlos no me dijo quiénes los tenían.[line break]> Muévete rápido. Si reactivaron el paquete esta noche,[line break]> es porque saben que el mensaje llegó.[variable letter spacing]".
+
+[--- LEER NETMAIL DE TORQUEMADA ---]
+
+Instead of reading the torquemada-netmail:
+	if Torquemada-fase < 3:
+		say "La bandeja está vacía.";
+	else if Fragmento4-obtenido is true:
+		say "Ya lo has leído.[paragraph break][bold type]Fragmento 4: VWXYZ-55503-AAQRT-IIUOP-77764[roman type]";
+	else:
+		now Fragmento4-obtenido is true;
+		increase the score by 30;
+		say "[fixed letter spacing]--- NETMAIL · DE: Torquemada@2:341/56 -------------------[line break]Belky.[line break] [line break]Guarda esto.[line break] [line break]FRAGMENTO 4:[line break][bold type]VWXYZ-55503-AAQRT-IIUOP-77764[roman type][line break] [line break]Los seis juntos forman la clave de descifrado.[line break]Lo que Carlos encontró lleva tres años cifrado,[line break]esperando que alguien juntara los fragmentos.[line break] [line break]Los tres sysops que quedan:[line break]2:341/88   · VelvetBBS  · Bilbao    · Silencia[line break]2:341/134  · NOCTURNO   · Sevilla   · Hexer[line break]2:341/211  · TERMINAL7  · Barcelona · r4d[line break] [line break]No sé quién tiene los fragmentos cinco y seis.[line break]Carlos nunca me lo dijo.[line break] [line break]Muévete. Si lo reactivaron esta noche,[line break]saben que el mensaje llegó.[line break] [line break]-- T[variable letter spacing][paragraph break][bracket]+ 30 puntos: fragmento 4 recuperado. Nuevos nodos: Bilbao, Sevilla, Barcelona.[close bracket]".
+
+[--- FIN DE ACTO II ---]
+
+Every turn when Fragmento4-obtenido is true and Acto-2-completo is false:
+	now Acto-2-completo is true;
+	say "[line break]----------------------------------------------------------[paragraph break]Cuatro fragmentos. Dos del mensaje de Carlos, uno del dead drop que dejó esperándote en Embajadores tres años, uno que Torquemada guardó desde aquella llamada del 21 de octubre del 91.[paragraph break]Quedan dos fragmentos sin localizar. Y en algún sitio, a medianoche del 23 de octubre de 1994, alguien sabe que has movido los hilos.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FIN DEL ACTO II — LA RED[roman type][paragraph break][bold type]===================================================[roman type][paragraph break][italic type]Acto III: El Archivo. Tres BBS. Tres ciudades. La clave ya tiene cuatro fragmentos. Lo que cifra sigue esperando.[roman type]".
 
 [================================================================
   INICIO

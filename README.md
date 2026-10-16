@@ -22,15 +22,17 @@ Alguien murió para enviarlo.
 
 ## Estado del desarrollo
 
-| Acto | Título | Estado |
-|---|---|---|
-| Acto I | La Caverna | ✅ En desarrollo |
-| Acto II | La Red | 🔲 Pendiente |
-| Acto III | El Archivo | 🔲 Pendiente |
-| Acto IV | El Origen | 🔲 Pendiente |
+| Acto | Título | Estado | Puntos |
+|---|---|---|---|
+| Acto I | La Caverna | ✅ Completo | 250 |
+| Acto II | La Red | ✅ Completo | 250 |
+| Acto III | El Archivo | 🔲 Pendiente | 250 |
+| Acto IV | El Origen | 🔲 Pendiente | 250 |
 
-**Puntuación total:** 1000 puntos (250 por acto).  
-**Acto I:** 250 puntos — seis puzles, tres NPCs, dos mundos (físico / digital).
+**Puntuación total:** 1000 puntos (250 por acto).
+
+**Acto I — La Caverna (250 pts):** seis puzles, tres NPCs, dos mundos (físico / digital).  
+**Acto II — La Red (250 pts):** dead drop en Embajadores, Mordor BBS, conversación con Torquemada, fragmentos 3 y 4 de la clave.
 
 ---
 
