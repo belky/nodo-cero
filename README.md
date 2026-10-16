@@ -26,13 +26,15 @@ Alguien murió para enviarlo.
 |---|---|---|---|
 | Acto I | La Caverna | ✅ Completo | 250 |
 | Acto II | La Red | ✅ Completo | 250 |
-| Acto III | El Archivo | 🔲 Pendiente | 250 |
-| Acto IV | El Origen | 🔲 Pendiente | 250 |
+| Acto III | El Archivo | ✅ Completo | 250 |
+| Acto IV | El Origen | ✅ Completo | 250 |
 
-**Puntuación total:** 1000 puntos (250 por acto).
+**Puntuación total:** 1000 puntos (250 por acto). **Juego completo.**
 
 **Acto I — La Caverna (250 pts):** seis puzles, tres NPCs, dos mundos (físico / digital).  
-**Acto II — La Red (250 pts):** dead drop en Embajadores, Mordor BBS, conversación con Torquemada, fragmentos 3 y 4 de la clave.
+**Acto II — La Red (250 pts):** dead drop en Embajadores, Mordor BBS, conversación con Torquemada, fragmentos 3 y 4.  
+**Acto III — El Archivo (250 pts):** VelvetBBS y NOCTURNO, consigna K-37 en Atocha, fragmentos 5 y 6, el disco BC.  
+**Acto IV — El Origen (250 pts):** clave maestra ensamblada, archivo descifrado, deposición de Carlos, tres finales.
 
 ---
 

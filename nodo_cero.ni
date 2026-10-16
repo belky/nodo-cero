@@ -1021,6 +1021,127 @@ Every turn when Fragmento6-obtenido is true and Acto-3-completo is false:
 	say "[line break]----------------------------------------------------------[paragraph break]Seis fragmentos. Los seis juntos.[paragraph break]Un mensaje muerto del 91. Un dead drop en Embajadores. Torquemada en Valladolid, Silencia en Bilbao, Hexer en Sevilla. Un disco en una consigna de Atocha.[paragraph break]La clave está completa. Lo que Carlos encontró en septiembre del 91 — los nombres, las transferencias, el canal FidoNet — lleva tres años cifrado, esperando esto.[paragraph break]Uno de los tres hombres de la foto lleva seis meses en el Congreso de los Diputados.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FIN DEL ACTO III — EL ARCHIVO[roman type][paragraph break][bold type]===================================================[roman type][paragraph break][italic type]Acto IV: El Origen. La clave completa. El archivo descifrado. Lo que Carlos encontró no era solo un fraude.[roman type]".
 
 [================================================================
+  ACTO IV — EL ORIGEN
+================================================================]
+
+[--- Variables de estado ---]
+Clave-ensamblada is a truth state that varies. Clave-ensamblada is false.
+Archivo-descifrado is a truth state that varies. Archivo-descifrado is false.
+Deposicion-leida is a truth state that varies. Deposicion-leida is false.
+Final-elegido is a number that varies. Final-elegido is 0.
+Acto-4-completo is a truth state that varies. Acto-4-completo is false.
+
+[--- Nuevas acciones ---]
+Assembling-key is an action applying to nothing.
+Understand "ensamblar clave" and "combinar fragmentos" and "unir fragmentos" and "montar clave" and "ensamblar" as assembling-key.
+
+Decrypting-archive is an action applying to nothing.
+Understand "descifrar archivo" and "descifrar fotos" and "descifrar disco" and "descifrar" and "desencriptar" and "desencriptar archivo" as decrypting-archive.
+
+Publishing-evidence is an action applying to nothing.
+Understand "publicar" and "enviar periodista" and "contactar prensa" and "publicar pruebas" and "llamar periodista" as publishing-evidence.
+
+Archiving-evidence is an action applying to nothing.
+Understand "archivar" and "conservar pruebas" and "archivar pruebas" and "esconder pruebas" as archiving-evidence.
+
+Erasing-evidence is an action applying to nothing.
+Understand "destruir" and "destruir pruebas" and "formatear" and "borrar todo" and "quemar todo" and "borrar pruebas" as erasing-evidence.
+
+[--- Nuevos objetos ---]
+clave-maestra is a thing.
+The printed name of clave-maestra is "clave maestra".
+Understand "clave" and "clave maestra" and "fragmentos combinados" as clave-maestra.
+The description of clave-maestra is "[fixed letter spacing]QZMVR-NLLPX-08847-AATRE-09911[line break]XKNT9-00013-WWQAZ-LLORE-55519[line break]MNTRI-00047-QQZXW-PPLOE-33318[line break]VWXYZ-55503-AAQRT-IIUOP-77764[line break]KLMNO-88821-RRQST-UUVWX-44469[line break]PQRST-12348-UUVVW-XXYYZ-66670[roman type][variable letter spacing][paragraph break]Seis filas. Nadie solo tenía suficiente.".
+
+deposicion is a thing.
+The printed name of deposicion is "deposición de Carlos".
+Understand "deposicion" and "testimonio carlos" and "texto carlos" and "deposicion carlos" as deposicion.
+The description of deposicion is "La última declaración de Carlos Mendoza García. 20 de octubre de 1991, un día antes de morir.".
+
+[--- ENSAMBLAR CLAVE ---]
+Check assembling-key:
+	if Clave-ensamblada is true:
+		say "La clave ya está ensamblada. DESCIFRAR ARCHIVO para usarla." instead;
+	if the player is not in Tu cuarto:
+		say "Necesitas estar frente al terminal." instead;
+	if Acto-3-completo is false:
+		say "Todavía te faltan fragmentos. Necesitas los seis para ensamblar la clave." instead.
+
+Carry out assembling-key:
+	now Clave-ensamblada is true;
+	now clave-maestra is carried by the player;
+	increase the score by 30;
+	say "Abres el editor de texto y pegas los seis fragmentos en orden, uno bajo otro.[paragraph break][fixed letter spacing]QZMVR-NLLPX-08847-AATRE-09911[line break]XKNT9-00013-WWQAZ-LLORE-55519[line break]MNTRI-00047-QQZXW-PPLOE-33318[line break]VWXYZ-55503-AAQRT-IIUOP-77764[line break]KLMNO-88821-RRQST-UUVWX-44469[line break]PQRST-12348-UUVVW-XXYYZ-66670[variable letter spacing][paragraph break]La clave tiene estructura de tabla. Seis filas, cinco bloques de cinco caracteres. Carlos la construyó así deliberadamente: ningún sysop solo tenía suficiente para descifrar nada.[paragraph break][bracket]+ 30 puntos: clave maestra ensamblada.[close bracket]".
+
+[--- DESCIFRAR ARCHIVO ---]
+Check decrypting-archive:
+	if Archivo-descifrado is true:
+		say "El archivo ya está descifrado. LEER DEPOSICION para el testimonio de Carlos." instead;
+	if the player is not in Tu cuarto:
+		say "Necesitas estar frente al terminal." instead;
+	if Clave-ensamblada is false:
+		say "Necesitas ensamblar primero la clave. ENSAMBLAR CLAVE." instead;
+	if disco-carlos is not carried by the player:
+		say "Necesitas el disco de Carlos. Cógelo de la consigna K-37 en Atocha." instead.
+
+Carry out decrypting-archive:
+	now Archivo-descifrado is true;
+	now deposicion is carried by the player;
+	increase the score by 60;
+	say "[fixed letter spacing]C:\>ARJ e A:FOTOS.ARJ[line break] [line break]Extracting DEPOSICION.TXT          ok[line break]Extracting 01-ORENSE-14SEP91.BMP   ok[line break]Extracting 02-ORENSE-FIRMA.BMP     ok[line break]Extracting 03-TRANSFERENCIA.BMP    ok[line break]Extracting NODOS.TXT               ok[line break] [line break]5 files extracted, 0 errors[variable letter spacing][paragraph break]El archivo se abre. Las imágenes BMP van a tardar tiempo en renderizarse — formato sin comprimir, resolución alta para 1991. Pero los ficheros de texto se abren en segundos.[paragraph break]LEER DEPOSICION para el testimonio de Carlos.[paragraph break][bracket]+ 60 puntos: FOTOS.ARJ descifrado.[close bracket]".
+
+[--- LEER DEPOSICION ---]
+Instead of reading the deposicion:
+	if Archivo-descifrado is false:
+		say "Primero descifra el archivo. DESCIFRAR ARCHIVO.";
+	else if Deposicion-leida is true:
+		say "[italic type]Carlos Mendoza García. 20 de octubre de 1991.[roman type]";
+	else:
+		now Deposicion-leida is true;
+		increase the score by 60;
+		say "[fixed letter spacing]--- DEPOSICION.TXT ----------------------------------------[line break] [line break]Mi nombre es Carlos Mendoza García, alias El_Fantasma,[line break]sysop del nodo FidoNet 2:341/199, Madrid.[line break]Hoy es 20 de octubre de 1991.[line break]Si alguien lee esto, yo ya he muerto.[line break] [line break]Durante tres años trabajé como auditor externo para el[line break]Banco Comercial Europeo. En septiembre del 91 encontré[line break]anomalías en los registros de la sucursal de Orense:[line break]transferencias de origen desconocido encubiertas como[line break]inversión inmobiliaria.[line break] [line break]El canal de transmisión eran dos nodos FidoNet:[line break]2:341/12 y 2:341/44. Ambos operados bajo distintos[line break]handles por la misma persona: ELPUNTO.[line break] [line break]ELPUNTO es Fermín Ruiz del Castillo.[line break]Es el coordinador de zona de FidoNet para España.[line break]Controla el flujo de netmail de toda la Zona 2:341.[line break]Nadie podría haber detectado las anomalías sin acceso[line break]a los logs de coordinación de zona. Yo los vi porque[line break]era auditor del banco.[line break] [line break]Marchetti es el intermediario. Ruiz del Castillo es[line break]la infraestructura. Los tres del banco son ejecutores.[line break] [line break]He partido la clave en seis fragmentos y la he[line break]distribuido entre seis sysops que no se conocen entre sí.[line break]Cada uno guarda una fila. Ninguno puede descifrar solo.[line break] [line break]He programado el envío de este paquete para que llegue[line break]en octubre del 94: tres años después. Un dead man's switch[line break]en los propios servidores de Caverna-7.[line break]Elegí a Belky porque es el único sysop de la zona en quien[line break]confío sin haberlo conocido en persona.[line break] [line break]Si has llegado hasta aquí, has hecho lo que yo no pude.[line break] [line break]Lo que hagas con esto es tuyo.[line break] [line break]— C.M.G. · El_Fantasma · 2:341/199[line break]  20/10/1991  23:47[variable letter spacing][paragraph break]El texto tiene fecha y hora. Carlos escribió esto la noche antes de morir.[paragraph break]Fermín Ruiz del Castillo. El coordinador de zona. La infraestructura misma de FidoNet en España, usada como canal de blanqueo.[paragraph break]Y Caverna-7 como dead man's switch. Tu propio nodo, usado por Carlos sin que lo supieras, para que el mensaje llegara exactamente esta noche.[paragraph break]La pantalla Philips tira su luz verde-blanca sobre la mesa. Son las tres de la madrugada del 24 de octubre de 1994.[paragraph break]Ahora tienes que decidir qué hacer con todo esto.[paragraph break][italic type]PUBLICAR para filtrar a la prensa. ARCHIVAR para guardarlo cifrado. DESTRUIR para borrarlo todo.[roman type][paragraph break][bracket]+ 60 puntos: testimonio de Carlos leído. El origen descubierto.[close bracket]".
+
+[--- LOS TRES FINALES ---]
+Check publishing-evidence:
+	if Deposicion-leida is false:
+		say "Primero lee la deposición de Carlos. LEER DEPOSICION." instead;
+	if Final-elegido is not 0:
+		say "Ya has tomado tu decisión." instead.
+
+Check archiving-evidence:
+	if Deposicion-leida is false:
+		say "Primero lee la deposición de Carlos. LEER DEPOSICION." instead;
+	if Final-elegido is not 0:
+		say "Ya has tomado tu decisión." instead.
+
+Check erasing-evidence:
+	if Deposicion-leida is false:
+		say "Primero lee la deposición de Carlos. LEER DEPOSICION." instead;
+	if Final-elegido is not 0:
+		say "Ya has tomado tu decisión." instead.
+
+Carry out publishing-evidence:
+	now Final-elegido is 1;
+	now Acto-4-completo is true;
+	increase the score by 100;
+	say "Copias los ficheros en tres diskettes y guardas los originales en tres lugares distintos. Luego marcas el número de El País — sección de investigación.[paragraph break]La llamada dura cuarenta y cinco minutos.[paragraph break]A las nueve de la mañana, un periodista con un maletín de cuero está en la puerta de tu edificio.[paragraph break]----------------------------------------------------------[paragraph break]Tres semanas después:[paragraph break][fixed letter spacing]MARCHETTI BARROS DIMITE ANTE LA EVIDENCIA DE PAGOS IRREGULARES[line break]CUESTA NOGALES DETENIDO POR LA GUARDIA CIVIL[line break]RAMÍREZ OLMOS ENCONTRADO MUERTO — CAUSAS NATURALES[variable letter spacing][paragraph break]Fermín Ruiz del Castillo desaparece antes de que la Guardia Civil llame a su puerta. La red FidoNet española queda sin coordinador de zona durante dos años.[paragraph break]Caverna-7 cierra esa misma semana. Recibes una carta sin remitente con una sola línea: [italic type]Gracias.[roman type][paragraph break]No sabes de quién es.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FINAL I — LA VOZ[roman type][paragraph break][bold type]   Puntuación final: 1000/1000[roman type][paragraph break][bold type]===================================================[roman type]";
+	end the story finally.
+
+Carry out archiving-evidence:
+	now Final-elegido is 2;
+	now Acto-4-completo is true;
+	increase the score by 100;
+	say "Cifras el archivo completo con tu propia clave. Distribuyes tres copias físicas en tres ciudades distintas. Una la guardas tú. Las otras dos se las confías a dos personas sin explicarles por qué.[paragraph break]Apuntas las instrucciones en papel. Quemas el papel.[paragraph break]----------------------------------------------------------[paragraph break]Tres años después:[paragraph break]Marchetti Barros jura el cargo de Ministro de Hacienda.[paragraph break]Esa noche, a las 23:15, el módem emite un pitido.[paragraph break]Solo uno.[paragraph break]Igual que entonces.[paragraph break]La pantalla espera.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FINAL II — EL PESO[roman type][paragraph break][bold type]   Puntuación final: 1000/1000[roman type][paragraph break][bold type]===================================================[roman type]";
+	end the story finally.
+
+Carry out erasing-evidence:
+	now Final-elegido is 3;
+	now Acto-4-completo is true;
+	increase the score by 100;
+	say "Formateas el diskette. Borras los archivos extraídos. Las imágenes BMP nunca llegaron a renderizarse del todo — nunca viste las caras con claridad.[paragraph break]Tienes los nombres en la cabeza. Los tendrás siempre.[paragraph break]----------------------------------------------------------[paragraph break]Doce años después:[paragraph break]En 2003, Marchetti Barros es detenido por una causa distinta. Un periodista con una fuente diferente y un archivo diferente. Las pruebas son suficientes.[paragraph break]Ramírez Olmos lleva años muerto — causas naturales.[paragraph break]Fermín Ruiz del Castillo dirige una consultora en Luxemburgo.[paragraph break]El nodo 2:341/199 figura en los archivos históricos de FidoNet como inactivo desde octubre del 91.[paragraph break]El origen queda sin nombre oficial. Pero ocurrió. Tú lo sabes.[paragraph break][bold type]===================================================[roman type][paragraph break][bold type]   FINAL III — EL SILENCIO[roman type][paragraph break][bold type]   Puntuación final: 1000/1000[roman type][paragraph break][bold type]===================================================[roman type]";
+	end the story finally.
+
+[================================================================
   INICIO
 ================================================================]
 
