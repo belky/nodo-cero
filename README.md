@@ -42,12 +42,20 @@ Requiere [Inform 7 10.1.2](https://ganelson.github.io/inform-website/). Sin exte
 
 ```
 ni --format=Inform6/32 --project nodo_cero.inform
-inform6 -G -v8 -E2 -~S output.inf nodo_cero.ulx
+inform6 -G -E2 -~S output.inf nodo_cero.ulx
 ```
 
 O abre `nodo_cero.inform` con la aplicación Inform.app y pulsa **Go**.
 
-El `.ulx` resultante se puede jugar con [Gargoyle](https://github.com/garglk/garglk), [Lectrote](https://github.com/erkyrath/lectrote) o cualquier intérprete Glulx.
+**Importante:** no usar la flag `-v8` de inform6. Con `-v8` el compilador genera Glulx versión 8.x en lugar de 3.1.x, lo que rompe la compatibilidad con los intérpretes actuales.
+
+## Cómo jugar
+
+El intérprete recomendado es **[Lectrote](https://github.com/erkyrath/lectrote)** — moderno, multiplataforma, compatible con Inform 7 10.1.2 al 100%.
+
+El `.ulx` también funciona en Inform.app (intérprete integrado) y en cualquier intérprete Glulx moderno.
+
+> **Nota sobre Gargoyle:** Gargoyle funciona con esta versión del juego, pero su intérprete Glulx interno (Git 1.3.8, de 2014) no soporta todas las características de Inform 7 10.x. Se recomienda Lectrote para una experiencia completa.
 
 ---
 

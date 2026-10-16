@@ -28,8 +28,9 @@
 	+ 70  Descubrir las KLUDGE lines (fragmento 2 + dead drop)
 ================================================================]
 
-[=== SOPORTE ESPAÑOL — verbos, direcciones y mensajes de parser ===]
+[=== SOPORTE ESPAÑOL — verbos, direcciones y TODOS los mensajes del sistema ===]
 
+[-- Direcciones --]
 Understand "norte" as north. Understand "n" as north.
 Understand "sur" as south.   Understand "s" as south.
 Understand "este" as east.   Understand "e" as east.
@@ -37,6 +38,7 @@ Understand "oeste" as west.  Understand "o" as west.
 Understand "arriba" and "subir" as up.
 Understand "abajo" and "bajar" as down.
 
+[-- Verbos --]
 Understand "coger [something]" and "tomar [something]" and "agarrar [something]" as taking.
 Understand "dejar [something]" and "soltar [something]" as dropping.
 Understand "examinar [something]" and "ex [something]" as examining.
@@ -47,12 +49,72 @@ Understand "esperar" as waiting.
 Understand "abrir [something]" as opening.
 Understand "cerrar [something]" as closing.
 
+[-- Mensajes de acciones — reglas Report/Check --]
+Report taking something: say "Cogido."; rule succeeds.
+Report dropping something: say "Dejado."; rule succeeds.
+The standard report waiting rule does nothing.
+Report waiting: say "El tiempo pasa."
+Report opening something: say "Abierto."; rule succeeds.
+Report closing something: say "Cerrado."; rule succeeds.
+
+Instead of taking something when the player carries the noun:
+	say "Ya lo llevas."
+Check taking something when the noun is scenery:
+	say "Eso es parte del escenario."; stop the action.
+Check taking something when the noun is fixed in place:
+	say "No puedes moverlo: está fijo."; stop the action.
+Check dropping something when the player does not carry the noun:
+	say "No lo llevas encima."; stop the action.
+Check opening something when the noun is open:
+	say "Ya está abierto."; stop the action.
+Check closing something when the noun is closed:
+	say "Ya está cerrado."; stop the action.
+
+[-- No puedes ir por ahí --]
+Instead of going nowhere:
+	say "No puedes ir por ahí."
+
+[-- Examinar al jugador --]
+Instead of examining the player:
+	say "Estás en pijama y llevas zapatillas de casa. Son casi las once y media de la noche."
+
+[-- Objetos visibles en la sala — sustituye "You can see X here" por "X está aquí." --]
+For printing a locale paragraph about a thing (called el_item):
+	if el_item is scenery, rule fails;
+	if el_item is the player, rule fails;
+	say "[printed name of el_item] está aquí.[line break]";
+	now el_item is mentioned;
+	rule succeeds.
+
+Rule for listing nondescript items of a room: do nothing instead.
+
+[-- Inventario --]
+Instead of taking inventory:
+	if nothing is carried by the player:
+		say "No llevas nada.";
+	else:
+		say "Llevas:[line break]";
+		repeat with objeto running through things carried by the player:
+			say "  [printed name of objeto][line break]".
+
+[-- Puntuación --]
+The announce the score rule does nothing.
+Report requesting the score:
+	say "Puntuación: [score]/[maximum score] puntos ([turn count] turno[if turn count is 1][else]s[end if])."
+
+[-- Errores de parser --]
 Rule for printing a parser error when the latest parser error is the I beg your pardon error:
 	say "No te he entendido." instead.
 Rule for printing a parser error when the latest parser error is the didn't understand error:
 	say "Comando no reconocido." instead.
 Rule for printing a parser error when the latest parser error is the only understood as far as error:
 	say "Solo he entendido parte de ese comando." instead.
+Rule for printing a parser error when the latest parser error is the not a verb I recognise error:
+	say "Ese verbo no lo reconozco." instead.
+Rule for printing a parser error when the latest parser error is the can't see any such thing error:
+	say "No veo eso por aquí." instead.
+Rule for printing a parser error when the latest parser error is the said too little error:
+	say "Necesito saber a qué te refieres." instead.
 
 [=== CONFIGURACIÓN ===]
 Use scoring. The maximum score is 1000.
